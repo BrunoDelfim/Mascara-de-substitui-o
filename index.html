@@ -24,22 +24,19 @@
     // preenche o input com zeros ao receber o foco
     input.addEventListener('focus', () => {
         if (input.value === "") {
+            // insere o máscara no input
             input.value = '00000000000-0';
         }
     });
 
     // adiciona o último caractere digitado à direita
     input.addEventListener('keypress', (event) => {
-
             // obtém o valor do input
             let valor = input.value;
-
             // retirar o hífen do input
             valor = valor.replace('-', '');
-
             // obtém a tecla pressionada
             const tecla = event.key;
-
             // verifica se a tecla é um número
             if (/^\d$/.test(tecla)) {
 
@@ -59,47 +56,51 @@
                         }
                     }
                 }
-
                 // pega os valores que serão exibidos antes do hífen
                 let valorInicial = valor.substr(0, 11);
                 // pega os valores que serão exibidos após o hífen
                 let valorFinal = valor.substr(11);
-
                 // atualiza o valor do input
                 input.value = valorInicial + '-' + valorFinal;
-                console.log(event)
-
                 // impede que o caractere digitado seja inserido novamente
                 event.preventDefault();
             }
-
-            // se a tecla for "Backspace" e o último caractere digitado for um número, substitui por "0"
-            else if (tecla === 'Backspace' &&/^\d$/.test(valor.charAt(valor.length - 1))) {
-                    valor = valor.substring(0, valor.length - 1);
-                    valor = '0' + valor;
-                    // pega os valores que serão exibidos antes do hífen
-                    let valorInicialB = valor.substr(0, 11);
-                    // pega os valores que serão exibidos após o hífen
-                    let valorFinalB = valor.substr(11);
-                    input.value = valorInicialB + '-' + valorFinalB;
-                    event.preventDefault();
-            }
-
+            // verifica a tecla tab
             else if (tecla === 'Tab') {
                 console.log(segundoCampo)
                 segundoCampo.focus(); // Move o foco para o segundo input
             }
-
         // limita o input para 13 caracteres
         if (input.value.length >= 13) {
             event.preventDefault();
         }
     });
-
     // limpa o input ao perder o foco se o valor dele for igual ao inicial
     input.addEventListener('blur', () => {
         if (input.value === '00000000000-0') {
+            // define o valor do input como em branco
             input.value = ''
+        }
+    });
+
+    // verifica a tecla backspace
+    input.addEventListener('keydown', (event) => {
+        // armazena a última a tecla pressionada
+        const tecla = event.key;
+        // armazena o valor inserido no input
+        let valor = input.value;
+        // retirar o hífen do valor
+        valor = valor.replace('-', '');
+        // se a tecla for "Backspace" e o último caractere digitado for um número, substitui por "0"
+        if (tecla === 'Backspace' && /^\d$/.test(valor.charAt(valor.length - 1))) {
+            valor = valor.substring(0, valor.length - 1);
+            valor = '0' + valor;
+            // pega os valores que serão exibidos antes do hífen
+            let valorInicialB = valor.substr(0, 11);
+            // pega os valores que serão exibidos após o hífen
+            let valorFinalB = valor.substr(11);
+            input.value = valorInicialB + '-' + valorFinalB;
+            event.preventDefault();
         }
     });
 
