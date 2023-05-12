@@ -41,5 +41,9 @@ input {
 }
 
 input:focus {
+<<<<<<< HEAD
     border-color: #a9a9a9;
+=======
+    background-color: #f6f6f6;
+>>>>>>> 86957ca... Estilo e script separados
 }
