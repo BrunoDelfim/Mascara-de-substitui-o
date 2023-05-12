@@ -41,5 +41,5 @@ input {
 }
 
 input:focus {
-    background-color: #f6f6f6;
+    border-color: #a9a9a9;
 }
